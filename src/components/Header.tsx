@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { blogName } from "../data/constants";
 import { AnimatePresence, motion } from "framer-motion";
 import Menu from "./Menu";
 import SearchButton from "./SearchButton";
+import { DataContext } from "../context/DataContext";
 const Header = () => {
+  const data = useContext(DataContext);
   const [searchOpen, setSearchOpen] = useState(false);
+  if (!data) return <></>;
+  const { setSearch, search } = data;
 
   function searchHandler() {
     setSearchOpen(!searchOpen);
@@ -30,6 +34,10 @@ const Header = () => {
               type="text"
               className="outline-none text-lg"
               placeholder="What are you looking for?"
+              value={search}
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                setSearch(event.target.value)
+              }
             />
           </motion.div>
         )}
