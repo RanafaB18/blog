@@ -1,17 +1,22 @@
 import { motion } from "framer-motion";
 import { DataContext } from "../context/DataContext";
-import { useContext } from "react";
-import BlogPost from "../components/BlogPost";
+import { useContext, useState } from "react";
 import Lottie from "lottie-react";
-import tumbleweed from "../../src/assets/tumbleweed.json"
+import tumbleweed from "../../src/assets/tumbleweed.json";
+import ViewOnly from "./ViewOnly";
+import EditOnly from "./EditOnly";
 const Home = () => {
   const data = useContext(DataContext);
-
+  const [toggled, setToggled] = useState({ view: true, edit: false });
   if (!data) return <></>;
   const { posts } = data;
-  console.log("Posts", posts);
   if (posts.length === 0) {
-    return <Lottie animationData={tumbleweed} className="absolute top-0 bottom-0 -z-10  px-5"/>
+    return (
+      <Lottie
+        animationData={tumbleweed}
+        className="absolute top-0 bottom-0 -z-10  px-5"
+      />
+    );
   }
   return (
     <>
@@ -19,22 +24,28 @@ const Home = () => {
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="grid grid-cols-1 gap-4 pt-16 p-8"
+        className="grid grid-cols-1 gap-4 pt-0 p-8"
       >
-        {posts.map((post) => {
-          const { author, mainImage, publishedAt, title, excerpt, id } = post;
-          return (
-            <BlogPost
-              key={id}
-              author={author}
-              mainImage={mainImage}
-              title={title}
-              publishedAt={publishedAt}
-              excerpt={excerpt}
-              id={id}
-            />
-          );
-        })}
+        <div className="flex justify-center">
+          <div
+            onClick={() => setToggled({ view: true, edit: false })}
+            className={`cursor-pointer px-12 py-3
+            bg-gray-700 bg-opacity-5 rounded-tl-md
+             rounded-bl-md ml-2 ${toggled.view && " text-white bg-opacity-50"}`}
+          >
+            <span>View</span>
+          </div>
+          <div
+            onClick={() => setToggled({ view: false, edit: true })}
+            className={`cursor-pointer px-12 py-3
+            bg-gray-700 bg-opacity-5 rounded-tr-md
+            rounded-br-md ${toggled.edit && "text-white bg-opacity-50"}`}
+          >
+            <span>Edit</span>
+          </div>
+        </div>
+        {toggled.view && <ViewOnly posts={posts} />}
+        {toggled.edit && <EditOnly posts={posts} />}
       </motion.section>
     </>
   );

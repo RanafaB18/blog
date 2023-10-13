@@ -6,8 +6,14 @@ export interface IForm {
     mainImage: string;
     publishedAt: string;
     body?: string;
-    excerpt?: string;
+    excerpt: string;
     id?: string;
+  }
+
+  export interface IEdit {
+    title: string;
+    excerpt: string,
+    id?: string
   }
 export interface DataContextType {
     isLoading: boolean,

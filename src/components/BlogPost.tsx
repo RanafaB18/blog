@@ -11,8 +11,6 @@ const BlogPost = ({
   id
 
 }: IForm) => {
-console.log("ID", id);
-
   const color = colors[Math.floor(Math.random() * colors.length)];
 
   const date = new Date(publishedAt);
@@ -25,8 +23,6 @@ console.log("ID", id);
     month: "long",
     day: "numeric",
   });
-  const slug = title.toLowerCase().split('').join('-')
-  console.log(slug);
 
   return (
     <Link

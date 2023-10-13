@@ -3,7 +3,7 @@ import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import DataContextProvider from "./context/DataContext.tsx";
 import Home from "./views/Home.tsx";
-import PostCreator from "./views/PostCreator.tsx";
+import PostCreator, { loader } from "./views/PostCreator.tsx";
 import LandingPage from "./views/LandingPage.tsx";
 import SinglePost from "./views/SinglePost.tsx";
 
@@ -15,6 +15,11 @@ const router = createBrowserRouter([
       {
         path: "/create-post",
         element: <PostCreator />,
+      },
+      {
+        path: "/edit-post/:id",
+        element: <PostCreator />,
+        loader: loader
       },
       {
         path: "",

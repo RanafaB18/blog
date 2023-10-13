@@ -5,11 +5,10 @@ import { IForm } from "../interface";
 import { motion } from "framer-motion";
 import { Markup } from "interweave";
 const SinglePost = () => {
-  const { year, month, day, id } = useParams();
+  const { id } = useParams();
   const data = useContext(DataContext);
   const [content, setContent] = useState<IForm>();
   const posts = data?.posts;
-  console.log({ year, month, day, id });
   useEffect(() => {
     setContent(posts?.find((post) => post.id === id));
   }, [id]);
@@ -19,6 +18,7 @@ const SinglePost = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
+
     >
       <div className="w-full flex justify-between uppercase text-xs px-4 py-2">
         <p>{content?.publishedAt}</p>

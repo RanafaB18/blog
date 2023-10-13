@@ -5,8 +5,9 @@ export const DataContext = createContext<DataContextType | null>(null);
 
 const DataContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, ] = useState(true);
-  const [posts, setPosts] = useState<IForm[]>([])
-  console.log("Posts", posts);
+  const postsExist = localStorage.getItem('blogPosts')
+  const localPosts = postsExist ? JSON.parse(postsExist) : []
+  const [posts, setPosts] = useState<IForm[]>(localPosts)
 
   return <DataContext.Provider value={{
     isLoading,
