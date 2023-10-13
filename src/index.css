@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f9f7f4
+}
+
+.ql-size-huge {
+  font-size: 48px !important;
+}
+
+img {
+  max-width: 450px;
+  max-height: 450px;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
