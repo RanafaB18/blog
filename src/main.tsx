@@ -6,6 +6,7 @@ import Home from "./views/Home.tsx";
 import PostCreator, { loader } from "./views/PostCreator.tsx";
 import LandingPage from "./views/LandingPage.tsx";
 import SinglePost from "./views/SinglePost.tsx";
+import ErrorPage from "./views/ErrorPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "/:year/:month/:day/:id",
         element: <SinglePost />
+      },
+      {
+        path: "*",
+        element: <ErrorPage />
       }
     ]
   },

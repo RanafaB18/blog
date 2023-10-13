@@ -102,7 +102,7 @@ const PostCreator = () => {
   }
 
   return (
-    <section className="p-4">
+    <section className="p-4 md:px-16 xl:max-w-6xl xl:mx-auto">
       <form onSubmit={addToPosts} className="flex flex-col gap-4 py-2">
         <div className="flex flex-col gap-1">
           <label htmlFor="title">Title</label>

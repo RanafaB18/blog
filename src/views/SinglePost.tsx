@@ -18,7 +18,7 @@ const SinglePost = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
-
+      className="md:px-16 xl:max-w-6xl xl:mx-auto"
     >
       <div className="w-full flex justify-between uppercase text-xs px-4 py-2">
         <p>{content?.publishedAt}</p>

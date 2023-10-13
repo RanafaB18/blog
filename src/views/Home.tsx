@@ -9,12 +9,14 @@ const Home = () => {
   const data = useContext(DataContext);
   const [toggled, setToggled] = useState({ view: true, edit: false });
   if (!data) return <></>;
-  const { mutablePosts } = data;
-  if (mutablePosts.length === 0) {
+  const { posts } = data;
+  console.log("Mu", posts);
+
+  if (posts.length === 0) {
     return (
       <Lottie
         animationData={tumbleweed}
-        className="absolute top-0 bottom-0 -z-10  px-5"
+        className="absolute inset-0 md:max-w-lg md:mx-auto -z-10 px-5"
       />
     );
   }
@@ -24,7 +26,7 @@ const Home = () => {
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="grid grid-cols-1 gap-4 pt-0 p-8"
+        className="grid grid-cols-1 gap-4 pt-0 p-8 md:px-16 xl:max-w-6xl xl:mx-auto"
       >
         <div className="flex justify-center">
           <div
@@ -44,8 +46,8 @@ const Home = () => {
             <span>Edit</span>
           </div>
         </div>
-        {toggled.view && <ViewOnly posts={mutablePosts} />}
-        {toggled.edit && <EditOnly posts={mutablePosts} />}
+        {toggled.view && <ViewOnly posts={posts} />}
+        {toggled.edit && <EditOnly posts={posts} />}
       </motion.section>
     </>
   );

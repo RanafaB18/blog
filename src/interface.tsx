@@ -18,7 +18,6 @@ export interface IEdit {
 export interface DataContextType {
   isLoading: boolean;
   posts: IForm[];
-  mutablePosts: IForm[];
   search: string;
   setSearch: Dispatch<SetStateAction<string>>;
   setPosts: Dispatch<SetStateAction<IForm[]>>;

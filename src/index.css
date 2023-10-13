@@ -5,10 +5,9 @@ body {
   background-color: #f9f7f4
 }
 
-.ql-size-huge {
-  font-size: 48px !important;
+.ql-editor {
+  height: 200px !important;
 }
-
 img {
   max-width: 450px;
   max-height: 450px;

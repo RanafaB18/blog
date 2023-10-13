@@ -34,7 +34,7 @@ const BlogPost = ({
           src={mainImage}
           alt={title}
           loading="lazy"
-          className="h-44 w-96 object-cover object-center"
+          className="h-44 w-96 md:h-96 md:w-full object-cover object-center"
         />
         <div
           style={{ backgroundColor: color }}
