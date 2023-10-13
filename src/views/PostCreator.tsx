@@ -18,7 +18,7 @@ export async function loader({ params }: { params: Params<string> }) {
 const PostCreator = () => {
   const post = useLoaderData() as IForm;
   console.log(post);
-  
+
   const today = new Date().toLocaleDateString(undefined, {
     year: "numeric",
     month: "long",
@@ -62,8 +62,8 @@ const PostCreator = () => {
       } catch (e) {
         console.log("Localstorage is full, please empty data");
       }
-        return newPosts;
-      });
+      return newPosts;
+    });
 
     navigate("/");
   }
@@ -107,6 +107,7 @@ const PostCreator = () => {
         <div className="flex flex-col gap-1">
           <label htmlFor="title">Title</label>
           <input
+            required
             type="text"
             name="title"
             onChange={updateForm}
@@ -118,6 +119,7 @@ const PostCreator = () => {
         <div className="flex flex-col gap-1">
           <label htmlFor="excerpt">Excerpt</label>
           <input
+            required
             type="text"
             name="excerpt"
             onChange={updateForm}
@@ -129,6 +131,7 @@ const PostCreator = () => {
         <div className="flex flex-col gap-1">
           <label htmlFor="author">Author</label>
           <input
+            required
             type="text"
             name="author"
             value={formData.author}
@@ -140,6 +143,7 @@ const PostCreator = () => {
         <div className="flex flex-col gap-1">
           <label htmlFor="mainImage">Main image</label>
           <input
+            required
             type="file"
             name="mainImage"
             accept="image/png, image/jpg, image/bmp, image/webp"
