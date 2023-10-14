@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useRef, useState } from "react";
 import { blogName } from "../data/constants";
 import { AnimatePresence, motion } from "framer-motion";
 import Menu from "./Menu";
@@ -7,7 +7,14 @@ import { DataContext } from "../context/DataContext";
 import { Link } from "react-router-dom";
 const Header = () => {
   const data = useContext(DataContext);
+  const searchRef = useRef<HTMLInputElement>(null);
   const [searchOpen, setSearchOpen] = useState(false);
+
+    useEffect(() => {
+      if (searchRef.current) {
+        searchRef.current.focus()
+      }
+    }, [searchOpen])
   if (!data) return <></>;
   const { setSearch, search } = data;
 
@@ -40,6 +47,7 @@ const Header = () => {
             className="absolute z-10 flex flex-col justify-center px-4 text-lg w-full md:w-10/12 xl:w-11/12 h-20 bg-white"
           >
             <input
+              ref={searchRef}
               type="text"
               className="outline-none text-lg md:placeholder:text-center"
               placeholder="What are you looking for?"

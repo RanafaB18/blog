@@ -16,8 +16,7 @@ export async function loader({ params }: { params: Params<string> }) {
 }
 
 const PostCreator = () => {
-  const post = useLoaderData() as IForm;
-  console.log(post);
+  const post = useLoaderData() as IForm; // undefined means newly created post
 
   const today = new Date().toLocaleDateString(undefined, {
     year: "numeric",
@@ -40,7 +39,7 @@ const PostCreator = () => {
 
   const data = useContext(DataContext);
   if (!data) return <></>;
-  const { setPosts } = data;
+  const { setPosts, setFetchData } = data;
 
   function addToPosts(event: FormEvent) {
     event.preventDefault();
@@ -54,6 +53,8 @@ const PostCreator = () => {
           }
           return mappedPost;
         });
+        setFetchData(prevState => !prevState)
+
       } else {
         newPosts = [...prevState, { ...formData, id, publishedAt: today }];
       }
@@ -143,7 +144,6 @@ const PostCreator = () => {
         <div className="flex flex-col gap-1">
           <label htmlFor="mainImage">Main image</label>
           <input
-            required
             type="file"
             name="mainImage"
             accept="image/png, image/jpg, image/bmp, image/webp"

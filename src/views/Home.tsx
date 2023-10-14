@@ -9,10 +9,9 @@ const Home = () => {
   const data = useContext(DataContext);
   const [toggled, setToggled] = useState({ view: true, edit: false });
   if (!data) return <></>;
-  const { posts } = data;
-  console.log("Mu", posts);
+  const { mutablePosts } = data;
 
-  if (posts.length === 0) {
+  if (mutablePosts.length === 0) {
     return (
       <Lottie
         animationData={tumbleweed}
@@ -46,8 +45,8 @@ const Home = () => {
             <span>Edit</span>
           </div>
         </div>
-        {toggled.view && <ViewOnly posts={posts} />}
-        {toggled.edit && <EditOnly posts={posts} />}
+        {toggled.view && <ViewOnly posts={mutablePosts} />}
+        {toggled.edit && <EditOnly posts={mutablePosts} />}
       </motion.section>
     </>
   );
