@@ -12,6 +12,9 @@ img {
   max-width: 450px;
   max-height: 450px;
 }
+.ql-font-monospace {
+  font-family: monospace !important;
+}
 
 @tailwind base;
 @tailwind components;

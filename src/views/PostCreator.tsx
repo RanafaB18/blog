@@ -7,6 +7,7 @@ import { IForm } from "../interface";
 import { formats, modules } from "../data/constants";
 import { Params, useLoaderData, useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
+import { AnimatePresence, motion } from "framer-motion";
 
 export async function loader({ params }: { params: Params<string> }) {
   const posts: IForm[] =
@@ -15,8 +16,24 @@ export async function loader({ params }: { params: Params<string> }) {
   return editPost === undefined ? null : editPost;
 }
 
+const animationVariant = {
+  hidden: {
+    opacity: 0
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: .5
+    }
+  },
+  exit: {
+    opacity: 0
+  }
+}
+
 const PostCreator = () => {
-  const post = useLoaderData() as IForm; // undefined means newly created post
+  const post = useLoaderData() as IForm; // undefined means newly created post else its an edit
+  const [warning, setWarning] = useState(false);
 
   const today = new Date().toLocaleDateString(undefined, {
     year: "numeric",
@@ -26,37 +43,48 @@ const PostCreator = () => {
   const [formData, setFormData] = useState<IForm>(
     post || {
       author: "",
-      publishedAt: "",
+      publishedAt: today,
       mainImage: "",
       title: "",
       body: "",
-      id: "",
+      id: uuid(),
       excerpt: "",
     }
   );
   const navigate = useNavigate();
   const quillRef = useRef<ReactQuill>(null);
-
+  const warningRef = useRef<HTMLDivElement>(null)
   const data = useContext(DataContext);
   if (!data) return <></>;
   const { setPosts, setFetchData } = data;
 
   function addToPosts(event: FormEvent) {
     event.preventDefault();
-    const id = uuid();
+    if (
+      Object.values(formData).some((value) => {
+        return !/\S/.test(value);
+      }) || !/\S/.test(quillRef.current?.getEditor().getText() || "")
+    ) {
+      scrollTo({behavior: "smooth", top: 0})
+      setWarning(true);
+      setTimeout(() => {
+        setWarning(false)
+      }, 2000);
+
+      return;
+    }
     setPosts((prevState) => {
       let newPosts;
       if (post !== undefined) {
         newPosts = prevState.map((mappedPost) => {
           if (mappedPost.id === post.id) {
-            return { ...formData, id, publishedAt: today };
+            return formData;
           }
           return mappedPost;
         });
-        setFetchData(prevState => !prevState)
-
+        setFetchData((prevState) => !prevState);
       } else {
-        newPosts = [...prevState, { ...formData, id, publishedAt: today }];
+        newPosts = [...prevState, formData];
       }
       try {
         localStorage.setItem("blogPosts", JSON.stringify(newPosts));
@@ -65,7 +93,6 @@ const PostCreator = () => {
       }
       return newPosts;
     });
-
     navigate("/");
   }
 
@@ -103,7 +130,7 @@ const PostCreator = () => {
   }
 
   return (
-    <section className="p-4 md:px-16 xl:max-w-6xl xl:mx-auto">
+    <section className="relative p-4 md:px-16 xl:max-w-6xl xl:mx-auto">
       <form onSubmit={addToPosts} className="flex flex-col gap-4 py-2">
         <div className="flex flex-col gap-1">
           <label htmlFor="title">Title</label>
@@ -173,6 +200,28 @@ const PostCreator = () => {
           Publish
         </button>
       </form>
+      <AnimatePresence>
+
+      {warning && (
+        <motion.div ref={warningRef} variants={animationVariant} initial="hidden" animate="visible" exit={"exit"} className="absolute border border-red-400d rounded-lg bg-red-400 text-white py-2 px-3 max-w-xs mx-auto top-0 left-0 right-0 flex gap-2 text-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
+              />
+            </svg>
+          <p>Please ensure all fields are filled</p>
+        </motion.div>
+      )}
+      </AnimatePresence>
     </section>
   );
 };
