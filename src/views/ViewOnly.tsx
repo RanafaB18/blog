@@ -3,7 +3,7 @@ import { IForm } from "../interface";
 
 const ViewOnly = ({posts}:{posts: IForm[]}) => {
   return (
-    <>
+    <div className="xl:max-w-6xl xl:mx-auto">
       {posts.map((post) => {
           const { author, mainImage, publishedAt, title, excerpt, id } = post;
           return (
@@ -18,7 +18,7 @@ const ViewOnly = ({posts}:{posts: IForm[]}) => {
             />
           );
         })}
-    </>
+    </div>
   )
 }
 

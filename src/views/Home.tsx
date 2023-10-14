@@ -25,7 +25,7 @@ const Home = () => {
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="grid grid-cols-1 gap-4 pt-0 p-8 md:px-16 xl:max-w-6xl xl:mx-auto"
+        className="grid grid-cols-1 gap-4 pt-0 p-8 md:px-16"
       >
         <div className="flex justify-center">
           <div

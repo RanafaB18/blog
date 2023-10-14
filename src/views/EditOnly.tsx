@@ -3,7 +3,7 @@ import { IForm } from "../interface";
 
 const EditOnly = ({posts}:{posts: IForm[]}) => {
   return (
-    <div className="md:grid md:grid-cols-4 grid-flow-row md:gap-4">
+    <div className="flex flex-col gap-4 xl:max-w-7xl xl:mx-auto xl:grid xl:grid-cols-3 ">
       {posts.map((post) => {
           const { title, excerpt, id } = post;
           return (

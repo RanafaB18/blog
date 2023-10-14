@@ -18,9 +18,9 @@ const EditPost = ({ title, excerpt, id }: IEdit) => {
   return (
     <motion.div
       layout
-      whileHover={{ scale: 1.1 }}
+      whileHover={{ scale: 1.05 }}
       transition={{ type: "spring" }}
-      className="flex flex-col gap-4 justify-around md:max-w-lg md:mx-auto border p-3 rounded-lg shadow-lg w-full"
+      className="flex flex-col gap-4 justify-around xl:w-96 md:max-w-lg md:mx-auto border p-3 rounded-lg shadow-lg w-full"
     >
       <p>{title}</p>
       <p>{excerpt}</p>
