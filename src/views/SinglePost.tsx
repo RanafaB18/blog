@@ -30,7 +30,7 @@ const SinglePost = () => {
         <h2 className="text-xl text-center font-semibold mb-8">
           {content?.title}
         </h2>
-        <img src={content?.mainImage} alt="" loading="lazy" />
+        <img src={content?.mainImage} alt="" loading="lazy" className=" object-scale-down object-center"/>
         <hr className="my-8" />
         <Markup content={content?.body} />
       </div>
