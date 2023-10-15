@@ -32,8 +32,17 @@ const SideBar = ({
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="flex justify-center items-center absolute bg-white left-0 right-0 top-24 h-44"
+      className="flex flex-col justify-evenly items-center absolute z-10 bg-white left-0 right-0 top-24 h-44"
     >
+      <Link
+        to="/"
+        onClick={() => {
+          setOpen(false);
+        }}
+        className=""
+      >
+        Home
+      </Link>
       <Link
         to="/create-post"
         onClick={() => {
