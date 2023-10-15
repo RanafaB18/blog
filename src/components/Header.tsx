@@ -32,9 +32,9 @@ const Header = () => {
         >
           Create Post
         </Link>
-        <h1 className="text-3xl whitespace-pre-line md:whitespace-normal text-center">
+        <Link to={"/"} className="text-3xl whitespace-pre-line md:whitespace-normal text-center">
           {blogName}
-        </h1>
+        </Link>
         <SearchButton onSearch={searchHandler} />
       </div>
       <AnimatePresence>
